@@ -1,0 +1,2165 @@
+{
+	"name": "Event sheet 1",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "Movimientos",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 228522627857864
+		},
+		{
+			"eventType": "variable",
+			"name": "positionX",
+			"type": "number",
+			"initialValue": "300",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 119551604544509
+		},
+		{
+			"eventType": "variable",
+			"name": "PositionY",
+			"type": "number",
+			"initialValue": "250",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 537624630959891
+		},
+		{
+			"eventType": "variable",
+			"name": "MovePlayer1",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 991305624313368
+		},
+		{
+			"eventType": "variable",
+			"name": "MovePlayer2",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 167441347500632
+		},
+		{
+			"eventType": "variable",
+			"name": "MovePlayer3",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 385898371535039
+		},
+		{
+			"eventType": "variable",
+			"name": "GAME_NAME",
+			"type": "string",
+			"initialValue": "scirra-chatexample",
+			"comment": "Name of the game on the signalling server.",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 393546864116627
+		},
+		{
+			"eventType": "variable",
+			"name": "INSTANCE_NAME",
+			"type": "string",
+			"initialValue": "default",
+			"comment": "Name of the instance on the signalling server.",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 902830528567767
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 481924768407414
+				}
+			],
+			"actions": [
+				{
+					"id": "set-group-active",
+					"objectClass": "System",
+					"sid": 193947397824603,
+					"parameters": {
+						"group-name": "\"Host\"",
+						"state": "deactivated"
+					}
+				},
+				{
+					"id": "set-group-active",
+					"objectClass": "System",
+					"sid": 942070015390882,
+					"parameters": {
+						"group-name": "\"Peer\"",
+						"state": "deactivated"
+					}
+				},
+				{
+					"id": "set-size",
+					"objectClass": "movimientosPlayers",
+					"sid": 430455974586068,
+					"parameters": {
+						"width": "3",
+						"height": "1",
+						"depth": "1"
+					}
+				}
+			],
+			"sid": 942519124995906
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Login",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 272500676139877
+						}
+					],
+					"actions": [
+						{
+							"id": "connect",
+							"objectClass": "Multiplayer",
+							"sid": 855683213133044,
+							"parameters": {
+								"server": "\"wss://multiplayer.construct.net\""
+							}
+						}
+					],
+					"sid": 503541799088407
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-connected",
+							"objectClass": "Multiplayer",
+							"sid": 627563060782522
+						}
+					],
+					"actions": [
+						{
+							"id": "log-in",
+							"objectClass": "Multiplayer",
+							"sid": 125591502739134,
+							"parameters": {
+								"alias": "\"Player-\" & MyUsername"
+							}
+						}
+					],
+					"sid": 156591028298481
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-logged-in",
+							"objectClass": "Multiplayer",
+							"sid": 124053270632584
+						}
+					],
+					"actions": [
+						{
+							"id": "join-room",
+							"objectClass": "Multiplayer",
+							"sid": 742597514611787,
+							"parameters": {
+								"game": "GAME_NAME",
+								"instance": "INSTANCE_NAME",
+								"room": "lowercase(RoomName)",
+								"max-peers": "0"
+							}
+						}
+					],
+					"sid": 463347032499780
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-joined-room",
+							"objectClass": "Multiplayer",
+							"sid": 243940660304401
+						}
+					],
+					"actions": [],
+					"sid": 675416876209683,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-host",
+									"objectClass": "Multiplayer",
+									"sid": 383877473213856
+								}
+							],
+							"actions": [
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 494131419872190,
+									"parameters": {
+										"group-name": "\"Host\"",
+										"state": "activated"
+									}
+								},
+								{
+									"id": "create-object",
+									"objectClass": "System",
+									"sid": 683325182162795,
+									"parameters": {
+										"object-to-create": "Sprite",
+										"layer": "0",
+										"x": "203",
+										"y": "214",
+										"create-hierarchy": false,
+										"template-name": "\"\""
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Sprite",
+									"sid": 413494405290390,
+									"parameters": {
+										"instance-variable": "name",
+										"value": "MyUsername"
+									}
+								},
+								{
+									"id": "associate-object-with-peer",
+									"objectClass": "Multiplayer",
+									"sid": 615020430612222,
+									"parameters": {
+										"object": "Sprite",
+										"peer-id": "Multiplayer.MyID"
+									}
+								},
+								{
+									"id": "sync-object-2",
+									"objectClass": "Multiplayer",
+									"sid": 863030445390492,
+									"parameters": {
+										"object": "Sprite",
+										"x": true,
+										"y": true,
+										"angle": false,
+										"precision": "normal-float-4-bytes",
+										"bandwidth": "normal-bandwidth-unpredictable"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Button",
+									"sid": 818746062201228,
+									"parameters": {
+										"instance-variable": "player",
+										"value": "Multiplayer.MyAlias"
+									}
+								},
+								{
+									"id": "set-enabled",
+									"objectClass": "create",
+									"sid": 514749055400882,
+									"parameters": {
+										"mode": "disabled"
+									}
+								},
+								{
+									"id": "set-visible",
+									"objectClass": "create",
+									"sid": 397004189821009,
+									"parameters": {
+										"visibility": "invisible"
+									}
+								},
+								{
+									"id": "set-enabled",
+									"objectClass": "Start2",
+									"sid": 906787880246385,
+									"parameters": {
+										"mode": "disabled"
+									}
+								},
+								{
+									"id": "set-visible",
+									"objectClass": "Start2",
+									"sid": 858197111920186,
+									"parameters": {
+										"visibility": "invisible"
+									}
+								}
+							],
+							"sid": 773711179702854
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 593344675656776
+								}
+							],
+							"actions": [
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 213516469620331,
+									"parameters": {
+										"group-name": "\"Peer\"",
+										"state": "activated"
+									}
+								},
+								{
+									"id": "sync-object-2",
+									"objectClass": "Multiplayer",
+									"sid": 639453013015465,
+									"parameters": {
+										"object": "Sprite",
+										"x": true,
+										"y": true,
+										"angle": false,
+										"precision": "normal-float-4-bytes",
+										"bandwidth": "normal-bandwidth-unpredictable"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Button",
+									"sid": 434082945044331,
+									"parameters": {
+										"instance-variable": "player",
+										"value": "MyUsername"
+									}
+								},
+								{
+									"id": "set-enabled",
+									"objectClass": "Start",
+									"sid": 782657863669033,
+									"parameters": {
+										"mode": "disabled"
+									}
+								},
+								{
+									"id": "set-visible",
+									"objectClass": "Start",
+									"sid": 764940130568752,
+									"parameters": {
+										"visibility": "invisible"
+									}
+								}
+							],
+							"sid": 569220772343583
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-left-room",
+							"objectClass": "Multiplayer",
+							"sid": 761664713844790
+						}
+					],
+					"actions": [],
+					"sid": 102474590496287,
+					"disabled": true
+				}
+			],
+			"sid": 165239590999964
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Host",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "tempMove",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 207136667262429
+				},
+				{
+					"eventType": "variable",
+					"name": "hostPlayer",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 110001971640559
+				},
+				{
+					"eventType": "variable",
+					"name": "splitMove",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 340637472631364
+				},
+				{
+					"eventType": "variable",
+					"name": "movimientosArray",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 431877946504352
+				},
+				{
+					"eventType": "variable",
+					"name": "splitName",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 560966552262369
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Start",
+							"sid": 209101253652195
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "Moves",
+							"sid": 585525875558909,
+							"parameters": [
+								"1"
+							]
+						},
+						{
+							"callFunction": "Moves",
+							"sid": 884884917874555,
+							"parameters": [
+								"2"
+							]
+						},
+						{
+							"callFunction": "Moves",
+							"sid": 569896197925792,
+							"parameters": [
+								"3"
+							]
+						}
+					],
+					"sid": 522895516311061
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Button",
+							"sid": 734664684911920
+						}
+					],
+					"actions": [
+						{
+							"type": "script",
+							"script": "localVars.hostPlayer = parseInt(runtime.globalVars.MyUsername)"
+						},
+						{
+							"id": "set-at-x",
+							"objectClass": "Array",
+							"sid": 596098757048562,
+							"parameters": {
+								"x": "movimientosPlayers.At(hostPlayer - 1) ",
+								"value": "Button.position"
+							}
+						},
+						{
+							"id": "set-at-x",
+							"objectClass": "movimientosPlayers",
+							"sid": 250609122841643,
+							"parameters": {
+								"x": "hostPlayer - 1",
+								"value": "movimientosPlayers.At(hostPlayer - 1) + 1"
+							}
+						},
+						{
+							"id": "broadcast-message",
+							"objectClass": "Multiplayer",
+							"sid": 132297783224966,
+							"parameters": {
+								"from-id": "\"\"",
+								"tag": "\"Move\"",
+								"message": "Button.position & \"-\"& hostPlayer & \"-\" & str(movimientosPlayers.At(hostPlayer - 1))",
+								"mode": "reliable-ordered"
+							}
+						}
+					],
+					"sid": 531485936506075
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-peer-message",
+							"objectClass": "Multiplayer",
+							"sid": 285915179377558,
+							"parameters": {
+								"tag": "\"Move\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 929765316799588,
+							"parameters": {
+								"variable": "tempMove",
+								"value": "Multiplayer.Message"
+							}
+						},
+						{
+							"type": "script",
+							"script": "localVars.splitMove = localVars.tempMove.split(\"-\")[0];\nlocalVars.splitName = localVars.tempMove.split(\"-\")[1];\nlocalVars.movimientosArray = parseInt(localVars.tempMove.split(\"-\")[2]);"
+						}
+					],
+					"sid": 365215505877894,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 259920909681304,
+									"parameters": {
+										"first-value": "splitName",
+										"comparison": 0,
+										"second-value": "\"2\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-at-x",
+									"objectClass": "Array2",
+									"sid": 501554594048991,
+									"parameters": {
+										"x": "movimientosArray -1 ",
+										"value": "splitMove"
+									}
+								},
+								{
+									"id": "set-at-x",
+									"objectClass": "movimientosPlayers",
+									"sid": 625997776322528,
+									"parameters": {
+										"x": "1",
+										"value": "movimientosArray"
+									}
+								}
+							],
+							"sid": 525589825183870
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 272403964582651,
+									"parameters": {
+										"first-value": "splitName",
+										"comparison": 0,
+										"second-value": "\"3\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-at-x",
+									"objectClass": "Array3",
+									"sid": 982369434232575,
+									"parameters": {
+										"x": "movimientosArray - 1",
+										"value": "splitMove"
+									}
+								},
+								{
+									"id": "set-at-x",
+									"objectClass": "movimientosPlayers",
+									"sid": 140975833789147,
+									"parameters": {
+										"x": "2",
+										"value": "movimientosArray"
+									}
+								}
+							],
+							"sid": 968023653266934
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "broadcast-message",
+									"objectClass": "Multiplayer",
+									"sid": 719210460026933,
+									"parameters": {
+										"from-id": "\"\"",
+										"tag": "\"Move\"",
+										"message": "Multiplayer.Message",
+										"mode": "reliable-ordered"
+									}
+								}
+							],
+							"sid": 407466076893473
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-peer-message",
+							"objectClass": "Multiplayer",
+							"sid": 804051846533792,
+							"parameters": {
+								"tag": "\"Value\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 673796633698091,
+							"parameters": {
+								"variable": "Movimientos",
+								"value": "int(Multiplayer.Message)"
+							}
+						}
+					],
+					"sid": 924494695517762,
+					"disabled": true
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-peer-message",
+							"objectClass": "Multiplayer",
+							"sid": 370986804326614,
+							"parameters": {
+								"tag": "\"Synchro\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "sync-instance-variable",
+							"objectClass": "Multiplayer",
+							"sid": 383557408827839,
+							"parameters": {
+								"object": "Sprite",
+								"instance-variable": {
+									"name": "movimientos",
+									"objectClass": "Sprite"
+								},
+								"precision": "normal-float-4-bytes",
+								"interpolation": "none",
+								"client-value-tag": "\"\""
+							}
+						}
+					],
+					"sid": 464501588838332
+				},
+				{
+					"eventType": "variable",
+					"name": "tempCreate",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 926799313900575
+				},
+				{
+					"eventType": "variable",
+					"name": "tempNameCreate",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 398084271337702
+				},
+				{
+					"eventType": "variable",
+					"name": "tempIdCreate",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 290615243249714
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-peer-message",
+							"objectClass": "Multiplayer",
+							"sid": 105509121588131,
+							"parameters": {
+								"tag": "\"Create\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 292936858642973,
+							"parameters": {
+								"variable": "tempCreate",
+								"value": "Multiplayer.Message"
+							}
+						},
+						{
+							"type": "script",
+							"script": "localVars.tempNameCreate = localVars.tempCreate.split(\"-\")[0]\nlocalVars.tempIdCreate = localVars.tempCreate.split(\"-\")[1]"
+						},
+						{
+							"id": "create-object",
+							"objectClass": "System",
+							"sid": 205941516604445,
+							"parameters": {
+								"object-to-create": "Sprite",
+								"layer": "0",
+								"x": "positionX",
+								"y": "PositionY",
+								"create-hierarchy": false,
+								"template-name": "\"\""
+							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "Sprite",
+							"sid": 563750034655984,
+							"parameters": {
+								"instance-variable": "name",
+								"value": "tempNameCreate"
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 582130161890188,
+							"parameters": {
+								"variable": "positionX",
+								"value": "positionX + 50"
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 843111782857766,
+							"parameters": {
+								"variable": "PositionY",
+								"value": "positionY+ 50"
+							}
+						},
+						{
+							"id": "broadcast-message",
+							"objectClass": "Multiplayer",
+							"sid": 395662974685327,
+							"parameters": {
+								"from-id": "\"\"",
+								"tag": "\"Set Position\"",
+								"message": "\"\"",
+								"mode": "reliable-ordered"
+							}
+						},
+						{
+							"id": "associate-object-with-peer",
+							"objectClass": "Multiplayer",
+							"sid": 202296582341638,
+							"parameters": {
+								"object": "Sprite",
+								"peer-id": "tempIdCreate"
+							}
+						},
+						{
+							"id": "sync-instance-variable",
+							"objectClass": "Multiplayer",
+							"sid": 182925925326539,
+							"parameters": {
+								"object": "Sprite",
+								"instance-variable": {
+									"name": "name",
+									"objectClass": "Sprite"
+								},
+								"precision": "normal-float-4-bytes",
+								"interpolation": "none",
+								"client-value-tag": "\"\""
+							}
+						}
+					],
+					"sid": 200606568560548
+				},
+				{
+					"functionName": "Moves",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "movesPlayer",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"sid": 537660632306675
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 556254736844751,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 944565016554122,
+									"parameters": {
+										"first-value": "movesPlayer",
+										"comparison": 0,
+										"second-value": "1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 448311625764048,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-at-x",
+											"objectClass": "Array",
+											"sid": 833187741143116,
+											"parameters": {
+												"x": "MovePlayer1",
+												"comparison": 1,
+												"value": "0"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 582509878960213,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 296694891189833,
+													"parameters": {
+														"first-value": "Array.At(MovePlayer1)",
+														"comparison": 0,
+														"second-value": "\"Up\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 302865507978524,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"1\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 365894322914597,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "up"
+													}
+												}
+											],
+											"sid": 800476014637802
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 558950474223397,
+													"parameters": {
+														"first-value": "Array.At(MovePlayer1)",
+														"comparison": 0,
+														"second-value": "\"Down\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 400331941873607,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"1\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 886248120530404,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "down"
+													}
+												}
+											],
+											"sid": 515458126548701
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 747170010517851,
+													"parameters": {
+														"first-value": "Array.At(MovePlayer1)",
+														"comparison": 0,
+														"second-value": "\"Left\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 145816699384509,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"1\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 419021815993987,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "left"
+													}
+												}
+											],
+											"sid": 164870729961815
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 815336308653583,
+													"parameters": {
+														"first-value": "Array.At(MovePlayer1)",
+														"comparison": 0,
+														"second-value": "\"Right\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 774979130463703,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"1\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 685495596505344,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "right"
+													}
+												}
+											],
+											"sid": 622233562323651
+										},
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "add-to-eventvar",
+													"objectClass": "System",
+													"sid": 832773650461098,
+													"parameters": {
+														"variable": "MovePlayer1",
+														"value": "1"
+													}
+												},
+												{
+													"id": "wait",
+													"objectClass": "System",
+													"sid": 610233800785685,
+													"parameters": {
+														"seconds": "1"
+													}
+												},
+												{
+													"id": "add-to-instvar",
+													"objectClass": "Sprite",
+													"sid": 318129318984190,
+													"parameters": {
+														"instance-variable": "movimientos",
+														"value": "1"
+													}
+												},
+												{
+													"id": "sync-instance-variable",
+													"objectClass": "Multiplayer",
+													"sid": 345846502077355,
+													"parameters": {
+														"object": "Sprite",
+														"instance-variable": {
+															"name": "movimientos",
+															"objectClass": "Sprite"
+														},
+														"precision": "normal-float-4-bytes",
+														"interpolation": "none",
+														"client-value-tag": "\"\""
+													}
+												},
+												{
+													"callFunction": "Moves",
+													"sid": 723150118904985,
+													"parameters": [
+														"movesPlayer"
+													]
+												}
+											],
+											"sid": 525253610931541
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 795662530995415
+										}
+									],
+									"actions": [
+										{
+											"id": "clear",
+											"objectClass": "Array",
+											"sid": 496215898271172,
+											"parameters": {
+												"value": "0"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 622569084817590,
+											"parameters": {
+												"variable": "MovePlayer1",
+												"value": "0"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 578626014347538,
+											"disabled": true,
+											"parameters": {
+												"variable": "Movimientos",
+												"value": "0"
+											}
+										},
+										{
+											"id": "broadcast-message",
+											"objectClass": "Multiplayer",
+											"sid": 570040523202414,
+											"parameters": {
+												"from-id": "\"\"",
+												"tag": "\"Clean Arrays\"",
+												"message": "\"\"",
+												"mode": "reliable-ordered"
+											}
+										}
+									],
+									"sid": 100966927987432
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 242951592633264,
+									"parameters": {
+										"first-value": "movesPlayer",
+										"comparison": 0,
+										"second-value": "2"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 469375921695712,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-at-x",
+											"objectClass": "Array2",
+											"sid": 709203646857805,
+											"parameters": {
+												"x": "MovePlayer2",
+												"comparison": 1,
+												"value": "0"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 592476067610911,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 533446215120576,
+													"parameters": {
+														"first-value": "Array2.At(MovePlayer2)",
+														"comparison": 0,
+														"second-value": "\"Up\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 960164639943486,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"2\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 381333790875431,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "up"
+													}
+												}
+											],
+											"sid": 823221379613813
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 741412925091080,
+													"parameters": {
+														"first-value": "Array2.At(MovePlayer2)",
+														"comparison": 0,
+														"second-value": "\"Down\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 463192860375503,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"2\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 179174834843149,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "down"
+													}
+												}
+											],
+											"sid": 909363600165023
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 509503904081796,
+													"parameters": {
+														"first-value": "Array2.At(MovePlayer2)",
+														"comparison": 0,
+														"second-value": "\"Left\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 947882806076873,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"2\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 267686016531234,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "left"
+													}
+												}
+											],
+											"sid": 811328204009109
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 824871648965221,
+													"parameters": {
+														"first-value": "Array2.At(MovePlayer2)",
+														"comparison": 0,
+														"second-value": "\"Right\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 838618710136137,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"2\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 646204415203018,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "right"
+													}
+												}
+											],
+											"sid": 688408434803939
+										},
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "add-to-eventvar",
+													"objectClass": "System",
+													"sid": 298669059034009,
+													"parameters": {
+														"variable": "MovePlayer2",
+														"value": "1"
+													}
+												},
+												{
+													"id": "sync-object-2",
+													"objectClass": "Multiplayer",
+													"sid": 615711454177974,
+													"parameters": {
+														"object": "Sprite",
+														"x": true,
+														"y": true,
+														"angle": false,
+														"precision": "normal-float-4-bytes",
+														"bandwidth": "normal-bandwidth-unpredictable"
+													}
+												},
+												{
+													"id": "wait",
+													"objectClass": "System",
+													"sid": 404616358230517,
+													"parameters": {
+														"seconds": "1"
+													}
+												},
+												{
+													"callFunction": "Moves",
+													"sid": 387250936503962,
+													"parameters": [
+														"movesPlayer"
+													]
+												}
+											],
+											"sid": 543803968620052
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 618983363738350
+										}
+									],
+									"actions": [
+										{
+											"id": "clear",
+											"objectClass": "Array2",
+											"sid": 891427104277430,
+											"parameters": {
+												"value": "0"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 515666475979101,
+											"parameters": {
+												"variable": "MovePlayer2",
+												"value": "0"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 985773241020000,
+											"disabled": true,
+											"parameters": {
+												"variable": "MovePlayer1",
+												"value": "0"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 793554654174695,
+											"disabled": true,
+											"parameters": {
+												"variable": "Movimientos",
+												"value": "0"
+											}
+										},
+										{
+											"id": "broadcast-message",
+											"objectClass": "Multiplayer",
+											"sid": 412879877287061,
+											"parameters": {
+												"from-id": "\"\"",
+												"tag": "\"Clean Arrays\"",
+												"message": "\"\"",
+												"mode": "reliable-ordered"
+											}
+										}
+									],
+									"sid": 463357827310553
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 438646398043399,
+									"parameters": {
+										"first-value": "movesPlayer",
+										"comparison": 0,
+										"second-value": "3"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 348672366380372,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-at-x",
+											"objectClass": "Array3",
+											"sid": 245726334009771,
+											"parameters": {
+												"x": "MovePlayer3",
+												"comparison": 1,
+												"value": "0"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 806898871664134,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 102926569835061,
+													"parameters": {
+														"first-value": "Array3.At(MovePlayer3)",
+														"comparison": 0,
+														"second-value": "\"Up\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 849818249630780,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"3\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 832169123011085,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "up"
+													}
+												}
+											],
+											"sid": 469081771398795
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 162527428277728,
+													"parameters": {
+														"first-value": "Array3.At(MovePlayer3)",
+														"comparison": 0,
+														"second-value": "\"Down\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 590172991710340,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"3\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 496619676335921,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "down"
+													}
+												}
+											],
+											"sid": 313041260964340
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 917208960485389,
+													"parameters": {
+														"first-value": "Array3.At(MovePlayer3)",
+														"comparison": 0,
+														"second-value": "\"Left\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 839153512305773,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"3\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 491069837077704,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "left"
+													}
+												}
+											],
+											"sid": 401008604345006
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 628311888905801,
+													"parameters": {
+														"first-value": "Array3.At(MovePlayer3)",
+														"comparison": 0,
+														"second-value": "\"Right\""
+													}
+												},
+												{
+													"id": "compare-instance-variable",
+													"objectClass": "Sprite",
+													"sid": 829021560065664,
+													"parameters": {
+														"instance-variable": "name",
+														"comparison": 0,
+														"value": "\"3\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "simulate-control",
+													"objectClass": "Sprite",
+													"sid": 849764292129243,
+													"behaviorType": "TileMovement",
+													"parameters": {
+														"control": "right"
+													}
+												}
+											],
+											"sid": 695084870325186
+										},
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "sync-object-2",
+													"objectClass": "Multiplayer",
+													"sid": 806091127371170,
+													"parameters": {
+														"object": "Sprite",
+														"x": true,
+														"y": true,
+														"angle": false,
+														"precision": "normal-float-4-bytes",
+														"bandwidth": "normal-bandwidth-unpredictable"
+													}
+												},
+												{
+													"id": "add-to-eventvar",
+													"objectClass": "System",
+													"sid": 525662278417504,
+													"parameters": {
+														"variable": "MovePlayer3",
+														"value": "1"
+													}
+												},
+												{
+													"id": "wait",
+													"objectClass": "System",
+													"sid": 167854320601243,
+													"parameters": {
+														"seconds": "1"
+													}
+												},
+												{
+													"callFunction": "Moves",
+													"sid": 105029242861991,
+													"parameters": [
+														"movesPlayer"
+													]
+												}
+											],
+											"sid": 996888311224172
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 675019467262432
+										}
+									],
+									"actions": [
+										{
+											"id": "clear",
+											"objectClass": "Array3",
+											"sid": 510777899944363,
+											"parameters": {
+												"value": "0"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 952493074598831,
+											"parameters": {
+												"variable": "MovePlayer3",
+												"value": "0"
+											}
+										},
+										{
+											"id": "broadcast-message",
+											"objectClass": "Multiplayer",
+											"sid": 849628340951945,
+											"parameters": {
+												"from-id": "\"\"",
+												"tag": "\"Clean Arrays\"",
+												"message": "\"\"",
+												"mode": "reliable-ordered"
+											}
+										}
+									],
+									"sid": 853126000765640
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-peer-message",
+							"objectClass": "Multiplayer",
+							"sid": 937003492812481,
+							"parameters": {
+								"tag": "\"Clean\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "clear",
+							"objectClass": "Array",
+							"sid": 195550100066802,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "clear",
+							"objectClass": "Array2",
+							"sid": 157982258468445,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "clear",
+							"objectClass": "Array3",
+							"sid": 572488571613784,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "clear",
+							"objectClass": "movimientosPlayers",
+							"sid": 928089276122978,
+							"parameters": {
+								"value": "0"
+							}
+						}
+					],
+					"sid": 248031414600698
+				}
+			],
+			"sid": 458913253277567
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Peer",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "tempMove",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 175807609466218
+				},
+				{
+					"eventType": "variable",
+					"name": "splitMove",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 720402624333557
+				},
+				{
+					"eventType": "variable",
+					"name": "moveArray",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 290320102041786
+				},
+				{
+					"eventType": "variable",
+					"name": "peerPlayer",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 480004571475214
+				},
+				{
+					"eventType": "variable",
+					"name": "splitName",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 786508218699760
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Button",
+							"sid": 543962083977436
+						}
+					],
+					"actions": [
+						{
+							"type": "script",
+							"script": "localVars.peerPlayer = parseInt(runtime.globalVars.MyUsername)"
+						},
+						{
+							"id": "set-at-x",
+							"objectClass": "movimientosPlayers",
+							"sid": 551439593717767,
+							"parameters": {
+								"x": "peerPlayer - 1",
+								"value": "movimientosPlayers.At(peerPlayer - 1) + 1"
+							}
+						},
+						{
+							"id": "send-message",
+							"objectClass": "Multiplayer",
+							"sid": 745127640989284,
+							"parameters": {
+								"peer-id": "\"\"",
+								"tag": "\"Move\"",
+								"message": "Button.position & \"-\"& peerPlayer & \"-\" & str(movimientosPlayers.At(peerPlayer - 1))",
+								"mode": "reliable-ordered"
+							}
+						}
+					],
+					"sid": 994532532522252
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Start2",
+							"sid": 620790298726810
+						}
+					],
+					"actions": [
+						{
+							"id": "send-message",
+							"objectClass": "Multiplayer",
+							"sid": 196045611185523,
+							"parameters": {
+								"peer-id": "\"\"",
+								"tag": "\"Synchro\"",
+								"message": "MyUsername",
+								"mode": "reliable-ordered"
+							}
+						}
+					],
+					"sid": 267259313774990
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "create",
+							"sid": 439053818287794
+						}
+					],
+					"actions": [
+						{
+							"id": "send-message",
+							"objectClass": "Multiplayer",
+							"sid": 747961927614552,
+							"parameters": {
+								"peer-id": "\"\"",
+								"tag": "\"Create\"",
+								"message": "MyUsername & \"-\" &Multiplayer.MyID",
+								"mode": "reliable-ordered"
+							}
+						}
+					],
+					"sid": 717424818224113
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-peer-message",
+							"objectClass": "Multiplayer",
+							"sid": 833521672706707,
+							"parameters": {
+								"tag": "\"Set Position\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 113074534423507,
+							"parameters": {
+								"variable": "positionX",
+								"value": "positionX + 50"
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 840222891705071,
+							"parameters": {
+								"variable": "PositionY",
+								"value": "PositionY + 50"
+							}
+						}
+					],
+					"sid": 874414491865643
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-peer-message",
+							"objectClass": "Multiplayer",
+							"sid": 474162175173624,
+							"parameters": {
+								"tag": "\"Move\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 113757415133898,
+							"parameters": {
+								"variable": "tempMove",
+								"value": "Multiplayer.Message"
+							}
+						},
+						{
+							"type": "script",
+							"script": "localVars.splitMove = localVars.tempMove.split(\"-\")[0];\nlocalVars.splitName = localVars.tempMove.split(\"-\")[1];\nlocalVars.moveArray = parseInt(localVars.tempMove.split(\"-\")[2]);"
+						}
+					],
+					"sid": 128108713145275,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 240918290580379,
+									"parameters": {
+										"first-value": "splitName",
+										"comparison": 0,
+										"second-value": "\"1\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-at-x",
+									"objectClass": "Array",
+									"sid": 136943048540691,
+									"parameters": {
+										"x": "moveArray - 1",
+										"value": "splitMove"
+									}
+								},
+								{
+									"id": "set-at-x",
+									"objectClass": "movimientosPlayers",
+									"sid": 156551799043931,
+									"parameters": {
+										"x": "0",
+										"value": "moveArray"
+									}
+								}
+							],
+							"sid": 649490312499635
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 277692480828576
+								}
+							],
+							"actions": [],
+							"sid": 302055222139967,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 856091480422722,
+											"parameters": {
+												"first-value": "splitName",
+												"comparison": 0,
+												"second-value": "\"2\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-at-x",
+											"objectClass": "Array2",
+											"sid": 763051073712695,
+											"parameters": {
+												"x": "moveArray - 1",
+												"value": "splitMove"
+											}
+										},
+										{
+											"id": "set-at-x",
+											"objectClass": "movimientosPlayers",
+											"sid": 393661400824455,
+											"parameters": {
+												"x": "1",
+												"value": "moveArray"
+											}
+										}
+									],
+									"sid": 142850304016470
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 624486044091540,
+											"parameters": {
+												"first-value": "splitName",
+												"comparison": 0,
+												"second-value": "\"3\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-at-x",
+											"objectClass": "Array3",
+											"sid": 268734484814720,
+											"parameters": {
+												"x": "moveArray - 1",
+												"value": "splitMove"
+											}
+										},
+										{
+											"id": "set-at-x",
+											"objectClass": "movimientosPlayers",
+											"sid": 839448084851597,
+											"parameters": {
+												"x": "2",
+												"value": "moveArray"
+											}
+										}
+									],
+									"sid": 779974727088444
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-peer-message",
+							"objectClass": "Multiplayer",
+							"sid": 789118890119660,
+							"parameters": {
+								"tag": "\"Clean Arrays\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "clear",
+							"objectClass": "Array",
+							"sid": 852928601135902,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "clear",
+							"objectClass": "Array2",
+							"sid": 175106468414402,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "clear",
+							"objectClass": "Array3",
+							"sid": 734203018297099,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "clear",
+							"objectClass": "movimientosPlayers",
+							"sid": 661450993732988,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "send-message",
+							"objectClass": "Multiplayer",
+							"sid": 178182956135577,
+							"parameters": {
+								"peer-id": "\"\"",
+								"tag": "\"Clean\"",
+								"message": "\"\"",
+								"mode": "reliable-ordered"
+							}
+						}
+					],
+					"sid": 431554097741379
+				}
+			],
+			"sid": 857717004171772
+		}
+	],
+	"sid": 898942442571689
+}

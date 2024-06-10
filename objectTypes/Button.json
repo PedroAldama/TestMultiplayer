@@ -1,0 +1,23 @@
+{
+	"name": "Button",
+	"plugin-id": "Button",
+	"sid": 517631356990021,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "position",
+			"type": "string",
+			"desc": "",
+			"show": true,
+			"sid": 439331158892953
+		},
+		{
+			"name": "player",
+			"type": "string",
+			"desc": "",
+			"show": true,
+			"sid": 126230832268679
+		}
+	],
+	"behaviorTypes": []
+}

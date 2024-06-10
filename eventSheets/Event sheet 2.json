@@ -1,0 +1,222 @@
+{
+	"name": "Event sheet 2",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "MyUsername",
+			"type": "string",
+			"initialValue": "",
+			"comment": "Name entered on login screen",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 244700221630900
+		},
+		{
+			"eventType": "variable",
+			"name": "RoomName",
+			"type": "string",
+			"initialValue": "",
+			"comment": "The name of the room to join from the login screen",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 422270505680752
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 768678347650523
+				}
+			],
+			"actions": [
+				{
+					"id": "set-focused",
+					"objectClass": "NameTextBox",
+					"sid": 564322940065956
+				}
+			],
+			"sid": 933558620357091,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "If multiplayer is not supported by this browser, indicate this on the login screen."
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "supports-multiplayer",
+							"objectClass": "Multiplayer",
+							"sid": 739581611265825,
+							"isInverted": true
+						}
+					],
+					"actions": [],
+					"sid": 411284789513841
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-text-changed",
+					"objectClass": "NameTextBox",
+					"sid": 474259718634853
+				},
+				{
+					"id": "on-text-changed",
+					"objectClass": "RoomNameTextBox",
+					"sid": 816856717706398
+				}
+			],
+			"actions": [],
+			"sid": 622400647998522,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-text",
+							"objectClass": "NameTextBox",
+							"sid": 789262511346637,
+							"parameters": {
+								"text": "\"\"",
+								"case": "case-insensitive"
+							}
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 845867583682575,
+							"parameters": {
+								"first-value": "len(RoomNameTextBox.Text)",
+								"comparison": 2,
+								"second-value": "5"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-enabled",
+							"objectClass": "JoinButton",
+							"sid": 266443677613934,
+							"parameters": {
+								"mode": "disabled"
+							}
+						}
+					],
+					"sid": 529652952270406,
+					"isOrBlock": true
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 749686313623524
+						}
+					],
+					"actions": [
+						{
+							"id": "set-enabled",
+							"objectClass": "JoinButton",
+							"sid": 108686768529855,
+							"parameters": {
+								"mode": "enabled"
+							}
+						}
+					],
+					"sid": 855098661571025
+				}
+			],
+			"isOrBlock": true
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "JoinButton",
+					"sid": 995581928064997
+				},
+				{
+					"id": "on-key-pressed",
+					"objectClass": "Keyboard",
+					"sid": 252434414914611,
+					"parameters": {
+						"key": 13
+					}
+				}
+			],
+			"actions": [],
+			"sid": 487874276381820,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-text",
+							"objectClass": "NameTextBox",
+							"sid": 990363318825085,
+							"parameters": {
+								"text": "\"\"",
+								"case": "case-insensitive"
+							},
+							"isInverted": true
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 622368355345921,
+							"parameters": {
+								"first-value": "len(RoomNameTextBox.Text)",
+								"comparison": 5,
+								"second-value": "5"
+							}
+						},
+						{
+							"id": "supports-multiplayer",
+							"objectClass": "Multiplayer",
+							"sid": 199672956743973
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 634265368825622,
+							"parameters": {
+								"variable": "MyUsername",
+								"value": "NameTextBox.Text"
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 168177136056370,
+							"parameters": {
+								"variable": "RoomName",
+								"value": "RoomNameTextBox.Text"
+							}
+						},
+						{
+							"id": "go-to-layout",
+							"objectClass": "System",
+							"sid": 215975656355189,
+							"parameters": {
+								"layout": "Layout 1"
+							}
+						}
+					],
+					"sid": 433373679517612
+				}
+			],
+			"isOrBlock": true
+		}
+	],
+	"sid": 975992713579643
+}

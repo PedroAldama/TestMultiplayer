@@ -1,0 +1,78 @@
+{
+	"name": "Sprite",
+	"plugin-id": "Sprite",
+	"sid": 240888251929931,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "player",
+			"type": "number",
+			"desc": "",
+			"show": true,
+			"sid": 499691878324315
+		},
+		{
+			"name": "name",
+			"type": "string",
+			"desc": "",
+			"show": true,
+			"sid": 355724827669792
+		},
+		{
+			"name": "movimientos",
+			"type": "number",
+			"desc": "",
+			"show": true,
+			"sid": 517094763941053
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "TileMovement",
+			"name": "TileMovement",
+			"sid": 507138912205972
+		}
+	],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 22,
+						"height": 22,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "",
+						"exportFormat": "lossless",
+						"exportQuality": 0.8,
+						"imageSpriteId": 547308,
+						"collisionPoly": {
+							"points": [
+								0.003968253968253968,
+								0.003968253968253968,
+								0.996031746031746,
+								0.003968253968253968,
+								0.996031746031746,
+								0.996031746031746,
+								0.003968253968253968,
+								0.996031746031746
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1,
+						"tag": ""
+					}
+				],
+				"sid": 523625732431807,
+				"name": "Animation 1",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}
